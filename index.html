@@ -1,0 +1,98 @@
+<!DOCTYPE HTML []>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="stylesheet" href="blackTheme.css">
+  <link rel="manifest" href="manifest.json" />
+  <script>
+    function myError() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("table");
+      tr = table.getElementsByTagName("tr");
+
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js">
+  </script>
+
+</head>
+
+<body>
+  <h1>
+    <span class="h1"></span>Glycamic Index: Foods</h1>
+    <!--<p>The glycemic index (GI) is a value used to measure how much specific foods increase blood sugar levels. Foods are
+      classified as low, medium, or high glycemic foods and ranked on a scale of 0–100. The lower the GI of a specific
+      food, the less it may affect your blood sugar levels ( 1 )</p>-->
+  <!--<p>The App shows the Glycemic Index (GI) value of the food you will search for in the box below.</p>-->
+  <div class="spacer">
+    <input type="text" id="myInput" onkeyup="myError()" placeholder="Type Food Name here...">
+    <table id='table'>
+      <!-- HEADING FORMATION -->
+
+      <div class="ani"></div>
+      <script>
+
+        function BgColor(id) {
+          var green = 255 - id*2 ;
+          var red = id + 155;
+          return `color:rgb(${red},${green},100);`;
+        }
+
+
+        $(document).ready(function () {
+
+          // FETCHING DATA FROM JSON FILE
+          $.getJSON("https://raw.githubusercontent.com/Killercodes/data/master/GI/GI%20Database%20Small.json",
+            function (data) {
+              var dataRow = '';
+
+              // ITERATING THROUGH OBJECTS
+              $.each(data, function (key, value) {
+
+                //CONSTRUCTION OF ROWS HAVING DATA FROM JSON OBJECT
+                var siz = parseInt(value.GI);
+                var bgcolor = BgColor(siz);
+
+                if(siz < 85)
+                  dataRow += `<tr style="${bgcolor}">`;
+                else 
+                  dataRow += `<tr style="${bgcolor}" class="glow">`;
+
+                dataRow += '<td>' + " " + value.name + '</td>';
+                dataRow += '<td id="val">' + value.GI + '%</td>';
+                dataRow += '</tr>';
+              });
+
+              //INSERTING ROWS INTO TABLE 
+              $('#table').append(dataRow);
+            });
+        });
+
+        var dataRow = `<tr style="">`;
+        dataRow += "<tr id='info'><td colspan='2'>The glycemic index (GI) is a value used to measure how much specific foods increase blood sugar levels. Foods are classified as low, medium, or high glycemic foods and ranked on a scale of 0–100. The lower the GI of a specific food, the less it may affect your blood sugar levels ( 1 )</td>";
+        dataRow += "<td></td>";
+        dataRow += "</tr>";
+        $('#table').append(dataRow);
+      </script>
+  </div>
+  <script src="pwa.js"></script>
+  
+</body>
+</html>

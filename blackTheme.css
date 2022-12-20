@@ -1,0 +1,62 @@
+body {
+    margin: 0.3em 0.3em 0.4em 0.4em;
+    font-family:'Verdana';
+    font-size: 100%;
+    background: #1e1e1e;
+}
+
+h1{
+    font-size:26px;
+    background-color: #131313;
+    border: 10px solid #131313;
+    color: #ffffff;
+    text-align:center;
+}
+
+table{
+    margin: 1px 1px;
+    width: 100%;
+}
+
+td, th {
+    vertical-align: top;
+    border: 0px solid #aaa;
+    padding: 5px;
+}
+
+#info {
+    color: #646464;
+    font-size: 12px;
+}
+
+#val{
+    text-align:center;  
+    font-size: 26px;
+}
+
+
+#val:hover{
+    font-weight: bolder;
+    font-size: 26px;
+}
+
+tr:hover, td:hover {
+    background-color: #131313;
+}
+
+
+
+#myInput {
+    width: 100%; /* Full-width */
+    font-size: 26px; /* Increase font-size */
+    padding: 12px 20px 12px 20px; /* Add some padding */
+    border: 0px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+    color: #e5feff;
+    background-color: #242424;
+    font-weight: bold;
+}
+
+#myInput:hover{
+    outline-width: 0;
+}
