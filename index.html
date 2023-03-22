@@ -17,7 +17,12 @@
 
       // Loop through all table rows, and hide those who don't match the search query
       for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
+
+        if(filter.endsWith("%"))
+          td = tr[i].getElementsByTagName("td")[1];
+        else
+          td = tr[i].getElementsByTagName("td")[0];
+
         if (td) {
           txtValue = td.textContent || td.innerText;
           if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -36,7 +41,7 @@
 
 <body>
   <h1>
-    <span class="h1"></span>Glycamic Index: Foods</h1>
+    <span class="h1"></span>GLYCAMIC INDEX: SEARCH</h1>
     <!--<p>The glycemic index (GI) is a value used to measure how much specific foods increase blood sugar levels. Foods are
       classified as low, medium, or high glycemic foods and ranked on a scale of 0–100. The lower the GI of a specific
       food, the less it may affect your blood sugar levels ( 1 )</p>-->
@@ -62,6 +67,8 @@
           $.getJSON("https://raw.githubusercontent.com/Killercodes/data/master/GI/GIDB.json",
             function (data) {
               var dataRow = '';
+
+              data.sort((a, b) => parseInt(a.GI) - parseInt(b.GI));
 
               // ITERATING THROUGH OBJECTS
               $.each(data, function (key, value) {
